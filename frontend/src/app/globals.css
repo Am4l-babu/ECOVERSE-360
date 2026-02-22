@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --eco-primary: #16b364;
+  --eco-dark: #084c2e;
+  --carbon-primary: #9b70f1;
+}
+
+body {
+  @apply bg-gray-50 text-gray-900 antialiased;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+@layer components {
+  .eco-card {
+    @apply bg-white rounded-2xl shadow-sm border border-gray-100 p-6
+           hover:shadow-md transition-shadow duration-200;
+  }
+  .eco-btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-xl
+           font-medium text-sm transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  .eco-btn-primary {
+    @apply eco-btn bg-eco-500 text-white hover:bg-eco-600
+           focus:ring-eco-400;
+  }
+  .eco-btn-secondary {
+    @apply eco-btn bg-gray-100 text-gray-700 hover:bg-gray-200
+           focus:ring-gray-300;
+  }
+  .eco-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs
+           font-medium;
+  }
+  .eco-input {
+    @apply block w-full rounded-xl border border-gray-200 px-4 py-2.5
+           text-sm focus:border-eco-400 focus:ring-2 focus:ring-eco-100
+           outline-none transition-all;
+  }
+  .stat-value {
+    @apply text-3xl font-bold tracking-tight;
+  }
+  .stat-label {
+    @apply text-sm text-gray-500 mt-1;
+  }
+}

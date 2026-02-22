@@ -1,0 +1,98 @@
+# ═══════════════════════════════════════════════════════════════════════
+# ECOVERSE 360 — Docker Compose
+# Full-stack: Backend + PostgreSQL + Redis + Mosquitto
+# ═══════════════════════════════════════════════════════════════════════
+
+version: "3.9"
+
+services:
+  # ── PostgreSQL ─────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: ecoverse-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ecoverse
+      POSTGRES_PASSWORD: ecoverse360
+      POSTGRES_DB: ecoverse_db
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/seed_data.sql:/docker-entrypoint-initdb.d/02-seed.sql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ecoverse -d ecoverse_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ── Redis ──────────────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: ecoverse-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # ── MQTT Broker (Mosquitto) ────────────────────────────────────────
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: ecoverse-mosquitto
+    restart: unless-stopped
+    volumes:
+      - ./docker/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_log:/mosquitto/log
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+
+  # ── Backend API ────────────────────────────────────────────────────
+  backend:
+    build: ./backend
+    container_name: ecoverse-backend
+    restart: unless-stopped
+    env_file: ./backend/.env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://ecoverse:ecoverse360@postgres:5432/ecoverse_db
+      REDIS_URL: redis://redis:6379/0
+      MQTT_BROKER_HOST: mosquitto
+      MQTT_BROKER_PORT: 1883
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      mosquitto:
+        condition: service_started
+    volumes:
+      - ml_models:/app/ml_models
+
+  # ── Frontend ───────────────────────────────────────────────────────
+  frontend:
+    build: ./frontend
+    container_name: ecoverse-frontend
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_API_URL: http://backend:8000/api/v1
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  pg_data:
+  redis_data:
+  mosquitto_data:
+  mosquitto_log:
+  ml_models:

@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.env
+*.egg-info/
+dist/
+build/
+ml_models/*.pkl
+.vscode/
+.idea/
+node_modules/
+.next/
