@@ -557,7 +557,105 @@ Documentation ───────────── README + Architecture + AP
 16. Satellite NDVI ──────── Vegetation health from space
 17. Micro-climate AI ────── AI-directed block-level interventions
 18. Auto ESG Reports ────── Regulatory PDF generation
+19. AYNO Bot ────────────── Autonomous garden & home guardian robot
+20. LoRa / LoRaWAN ──────── Long-range sub-GHz sensor networking
+21. SNN Edge AI ─────────── Spiking neural networks for ultra-low-power
+22. BLE Mesh ────────────── Dense indoor sensor mesh topology
+23. TinyML ──────────────── On-device ML for ESP32/STM32
+24. Federated Learning ──── Cross-site model training (privacy-first)
+25. OPC UA Bridge ───────── Industrial protocol integration
+26. Swarm Robotics ──────── Multi-robot coordination for large areas
 ```
+
+---
+
+## 🤖 AYNO Bot — Autonomous Garden & Home Guardian Robot
+
+> *A mobile extension of the Ecoverse ecosystem — on wheels*
+
+AYNO Bot is a planned **autonomous multi-role robot** that brings Ecoverse 360 intelligence into the physical world. It serves as gardener, harvester, cleaner, guard, and logistics agent — a mobile digital twin that physically walks through your garden updating reality.
+
+### Five Roles, One Robot
+
+| Role | What It Does |
+|------|-------------|
+| **Gardener** | Soil moisture probing via swappable end effector, automated watering with small onboard tank, precision irrigation scheduling from soil data |
+| **Harvester** | Soft-grip robotic arm for nutmeg/fruit collection, per-tree yield tracking, daily harvest reports with tree-mapped data |
+| **Plant Doctor** | RGB camera + AI leaf scanning for decay, disease, and nutrient deficiency detection, early warning alerts to app |
+| **Cleaner** | Rotating brush/blower for scheduled front-area sweeping (morning + evening), user-selectable cleaning zones via mobile app |
+| **Guard & Pet** | Person detection, friendly voice interaction with guests, unknown-presence alerts, camera recording, acts as a welcoming presence |
+| **Logistics Agent** | Battery-aware cost-based path planning, auto-docking to charging station, WiFi-controlled water tap refilling |
+
+### Brain Architecture
+
+```
+┌───────────────┐
+│  Mobile App   │ ← mapping, reports, manual override, zone tagging
+└──────┬────────┘
+       │ WiFi
+┌──────▼────────┐
+│ Edge AI Brain │ ← SLAM navigation, leaf AI, path planning, voice
+│ (Jetson/RPi)  │
+└──────┬────────┘
+       │ UART / CAN
+┌──────▼────────┐
+│   RT MCU      │ ← motor control, encoders, arm servos, sensors
+│ (ESP32/STM32) │
+└───────────────┘
+```
+
+### Key Technical Specs
+
+| System | Details |
+|--------|---------|
+| **Mobility** | 4-wheel differential drive, quadrature encoders, skid steering on soil + tiles |
+| **Navigation** | 2D LiDAR SLAM + IMU + wheel odometry, cost-based path planning (distance + slope + battery + water) |
+| **Robotic Arm** | 4-5 DOF, auto-detected swappable end effectors (soft gripper, soil probe, brush/blower) |
+| **Water System** | Small onboard tank (low weight), WiFi-controlled tap refill, zone-based watering from soil data |
+| **Charging** | ArUco/AprilTag visual alignment + IR + contact pads, idle-hour charge scheduling |
+| **Plant Mapping** | Each tree/plant = tagged SLAM node with profile (moisture, last watered, yield history, leaf health) |
+| **Harvesting** | Nutmeg/fruit detection via camera, soft-grip collection, per-tree daily count + reporting |
+| **Cleaning** | Time-scheduled sweeping, app-defined zones, rotating brush or blower end effector |
+| **Security** | Person detection (YOLO), voice greeting (TTS), camera recording, unknown-presence alerts |
+| **Integration** | Feeds real-time data into Ecoverse Digital Twin — the garden becomes a living, mapped ecosystem |
+
+### Build Phases (AYNO Bot)
+
+| Phase | Focus | Key Deliverables |
+|:-----:|-------|-----------------|
+| 1 | Core Robot | 4WD chassis + encoders + basic WiFi control + app joystick |
+| 2 | Mapping & App | LiDAR SLAM + plant/tree tagging + live garden map on app |
+| 3 | Arm + Harvesting | Robotic arm + gripper + nutmeg collection + per-tree reports |
+| 4 | AI Vision | Leaf defect detection + voice interaction + security features |
+
+---
+
+## 🔬 Advanced Technology Upgrades
+
+### Communication & Networking
+
+| Technology | Application in Ecoverse 360 | Status |
+|-----------|----------------------------|:------:|
+| **LoRa (Long Range)** | Sub-GHz links spanning 2-15 km for rural/farm sensors beyond WiFi range — ideal for Phase 3-4 government/enterprise deployments and remote agricultural monitoring | 🔮 |
+| **LoRa Mesh / LoRaWAN** | Multi-hop mesh topology where sensor nodes relay data through each other to a LoRa gateway — extends coverage across large campuses, parks, and industrial sites without WiFi infrastructure | 🔮 |
+| **BLE Mesh Network** | Bluetooth Low Energy mesh for dense indoor sensor networks — building-wide occupancy tracking, indoor air quality mapping, and smart HVAC zone control across rooms and floors | 🔮 |
+| **OPC UA + MQTT Bridge** | Industrial protocol bridging for Phase 4 factory integration — connects legacy PLCs, SCADA systems, and industrial sensors to the Ecoverse MQTT pipeline | 🔮 |
+
+### Edge AI & Neuromorphic Computing
+
+| Technology | Application in Ecoverse 360 | Status |
+|-----------|----------------------------|:------:|
+| **SNN (Spiking Neural Networks)** | Neuromorphic computing for ultra-low-power edge AI — event-driven processing that mimics biological neurons, enabling always-on anomaly detection on battery-powered sensor nodes without cloud dependency | 🔮 |
+| **TinyML** | Deploy quantized ML models directly on ESP32/STM32 microcontrollers — on-device waste classification, anomaly detection, and predictive alerts without network dependency | 🔮 |
+| **Federated Learning** | Train ML models across multiple deployment sites without centralizing raw data — privacy-preserving, bandwidth-efficient, allows campus-specific model adaptation while sharing global knowledge | 🔮 |
+
+### Architecture & Simulation
+
+| Technology | Application in Ecoverse 360 | Status |
+|-----------|----------------------------|:------:|
+| **Enhanced Edge-Fog-Cloud** | 3-tier processing continuum — SNNs at edge for instant anomaly detection, fog nodes for local aggregation + emergency control, cloud for Digital Twin simulation + ML training + cross-site federation | 🔮 |
+| **Digital Twin Federation** | Hierarchical twinning — room twins aggregate to building twins → campus twins → city-level twins — enabling multi-scale simulation and policy planning | 🔮 |
+| **Swarm Intelligence** | Multi-robot coordination for large-area deployments — multiple AYNO Bots covering different garden zones with shared mapping and task allocation | 🔮 |
 
 ---
 

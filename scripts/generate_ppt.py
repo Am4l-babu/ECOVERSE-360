@@ -39,7 +39,7 @@ prs.slide_height = Inches(7.5)
 W = prs.slide_width
 H = prs.slide_height
 
-TOTAL_SLIDES = 14
+TOTAL_SLIDES = 16
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -1086,7 +1086,177 @@ add_slide_number(slide, 13)
 
 
 # ═══════════════════════════════════════════════════════════════════════
-#  SLIDE 14 — THANK YOU / Q&A
+#  SLIDE 14 — AYNO BOT (Autonomous Garden & Home Robot)
+# ═══════════════════════════════════════════════════════════════════════
+slide = prs.slides.add_slide(prs.slide_layouts[6])
+add_bg(slide, SLIDE_BG)
+add_top_bar(slide, "AYNO BOT — AUTONOMOUS GARDEN ROBOT",
+            "A mobile extension of Ecoverse 360 — gardening, harvesting, cleaning, guarding")
+
+# Left panel — What AYNO Does
+add_rounded_rect(slide, Inches(0.4), Inches(1.3), Inches(6.2), Inches(5.7),
+                 WHITE, border_color=RGBColor(0xE5, 0xE7, 0xEB))
+add_rect(slide, Inches(0.4), Inches(1.3), Inches(6.2), Inches(0.07), ECO_GREEN)
+add_text_box(slide, Inches(0.7), Inches(1.45), Inches(5.5), Inches(0.4),
+             "5 Roles, 1 Robot", font_size=18, color=ECO_DARK, bold=True)
+
+roles = [
+    "GARDENER — Soil moisture probing, automated watering with",
+    "  small onboard tank, precision irrigation from soil data",
+    "",
+    "HARVESTER — Soft-grip robotic arm collects nutmeg/fruit,",
+    "  per-tree yield tracking, daily harvest reports",
+    "",
+    "PLANT DOCTOR — RGB camera + AI scans leaves for decay,",
+    "  disease, nutrient deficiency — early warning alerts",
+    "",
+    "CLEANER — Scheduled front-area sweeping (morning + evening),",
+    "  user-selectable cleaning zones via mobile app",
+    "",
+    "GUARD & PET — Person detection, friendly voice greeting,",
+    "  unknown-presence alerts, camera recording",
+]
+
+add_bullet_frame(slide, Inches(0.7), Inches(1.95), Inches(5.6), Inches(4.8),
+                 roles, font_size=11, color=GRAY, spacing=Pt(3))
+
+# Right panel — Architecture + specs
+add_rounded_rect(slide, Inches(6.8), Inches(1.3), Inches(6.2), Inches(2.8),
+                 WHITE, border_color=RGBColor(0xE5, 0xE7, 0xEB))
+add_rect(slide, Inches(6.8), Inches(1.3), Inches(6.2), Inches(0.07), BLUE)
+add_text_box(slide, Inches(7.1), Inches(1.45), Inches(5.5), Inches(0.4),
+             "Brain Architecture", font_size=16, color=ECO_DARK, bold=True)
+
+brain_lines = [
+    "Mobile App (WiFi)  —  mapping, reports, manual override",
+    "       ↓",
+    "Edge AI (Jetson/RPi)  —  SLAM, leaf AI, path planning",
+    "       ↓  UART / CAN",
+    "RT MCU (ESP32/STM32)  —  motors, encoders, arm, sensors",
+]
+
+add_bullet_frame(slide, Inches(7.1), Inches(1.95), Inches(5.6), Inches(2.0),
+                 brain_lines, font_size=11, color=GRAY, spacing=Pt(5))
+
+# Right bottom — Key specs
+add_rounded_rect(slide, Inches(6.8), Inches(4.3), Inches(6.2), Inches(2.7),
+                 WHITE, border_color=RGBColor(0xE5, 0xE7, 0xEB))
+add_rect(slide, Inches(6.8), Inches(4.3), Inches(6.2), Inches(0.07), TEAL)
+add_text_box(slide, Inches(7.1), Inches(4.45), Inches(5.5), Inches(0.4),
+             "Key Technical Details", font_size=16, color=ECO_DARK, bold=True)
+
+specs = [
+    "• 4-wheel differential drive + quadrature encoders",
+    "• 2D LiDAR SLAM + IMU + wheel odometry",
+    "• Cost-based path planning (distance + battery + water)",
+    "• 4-5 DOF arm with swappable end effectors",
+    "• WiFi-controlled tap refill for water tank",
+    "• ArUco/AprilTag auto-dock charging station",
+    "• Per-tree SLAM mapping with plant health profiles",
+    "• Feeds data into Ecoverse Digital Twin ecosystem",
+]
+
+add_bullet_frame(slide, Inches(7.1), Inches(4.95), Inches(5.6), Inches(1.9),
+                 specs, font_size=10, color=GRAY, spacing=Pt(3))
+
+add_slide_number(slide, 14)
+
+
+# ═══════════════════════════════════════════════════════════════════════
+#  SLIDE 15 — ADVANCED TECHNOLOGY UPGRADES
+# ═══════════════════════════════════════════════════════════════════════
+slide = prs.slides.add_slide(prs.slide_layouts[6])
+add_bg(slide, SLIDE_BG)
+add_top_bar(slide, "ADVANCED TECHNOLOGY ROADMAP",
+            "Next-generation networking, edge AI, and architecture upgrades")
+
+# Column 1 — Communication
+add_rounded_rect(slide, Inches(0.3), Inches(1.3), Inches(4.1), Inches(5.7),
+                 WHITE, border_color=RGBColor(0xE5, 0xE7, 0xEB))
+add_rect(slide, Inches(0.3), Inches(1.3), Inches(4.1), Inches(0.07), BLUE)
+add_text_box(slide, Inches(0.5), Inches(1.45), Inches(3.7), Inches(0.4),
+             "Communication & Networking", font_size=14, color=BLUE, bold=True)
+
+comm_items = [
+    "LoRa (Long Range)",
+    "  Sub-GHz links spanning 2-15 km for remote",
+    "  sensors beyond WiFi — ideal for Phase 3-4",
+    "",
+    "LoRa Mesh / LoRaWAN",
+    "  Multi-hop relay topology — extends coverage",
+    "  across campuses, parks, industrial sites",
+    "",
+    "BLE Mesh Network",
+    "  Dense indoor sensor networks — occupancy",
+    "  tracking, air quality mapping, HVAC control",
+    "",
+    "OPC UA + MQTT Bridge",
+    "  Industrial protocol bridging — connects",
+    "  PLCs, SCADA to Ecoverse MQTT pipeline",
+]
+
+add_bullet_frame(slide, Inches(0.5), Inches(1.95), Inches(3.7), Inches(4.8),
+                 comm_items, font_size=10, color=GRAY, spacing=Pt(2))
+
+# Column 2 — Edge AI
+add_rounded_rect(slide, Inches(4.6), Inches(1.3), Inches(4.1), Inches(5.7),
+                 WHITE, border_color=RGBColor(0xE5, 0xE7, 0xEB))
+add_rect(slide, Inches(4.6), Inches(1.3), Inches(4.1), Inches(0.07), CARBON)
+add_text_box(slide, Inches(4.8), Inches(1.45), Inches(3.7), Inches(0.4),
+             "Edge AI & Neuromorphic", font_size=14, color=CARBON, bold=True)
+
+ai_items = [
+    "SNN (Spiking Neural Networks)",
+    "  Neuromorphic ultra-low-power edge AI —",
+    "  event-driven, mimics biological neurons,",
+    "  always-on anomaly detection without cloud",
+    "",
+    "TinyML",
+    "  Quantized ML on ESP32/STM32 —",
+    "  on-device waste classification, anomaly",
+    "  detection, predictive alerts, zero latency",
+    "",
+    "Federated Learning",
+    "  Cross-site model training without sharing",
+    "  raw data — privacy-preserving, bandwidth-",
+    "  efficient, campus-specific adaptation",
+]
+
+add_bullet_frame(slide, Inches(4.8), Inches(1.95), Inches(3.7), Inches(4.8),
+                 ai_items, font_size=10, color=GRAY, spacing=Pt(2))
+
+# Column 3 — Architecture
+add_rounded_rect(slide, Inches(8.9), Inches(1.3), Inches(4.1), Inches(5.7),
+                 WHITE, border_color=RGBColor(0xE5, 0xE7, 0xEB))
+add_rect(slide, Inches(8.9), Inches(1.3), Inches(4.1), Inches(0.07), TEAL)
+add_text_box(slide, Inches(9.1), Inches(1.45), Inches(3.7), Inches(0.4),
+             "Architecture & Simulation", font_size=14, color=TEAL, bold=True)
+
+arch_items = [
+    "Enhanced Edge-Fog-Cloud",
+    "  SNNs at edge → fog aggregation →",
+    "  cloud Twin simulation + ML training",
+    "  + cross-site federation",
+    "",
+    "Digital Twin Federation",
+    "  Hierarchical twinning: room → building",
+    "  → campus → city level — multi-scale",
+    "  simulation and policy planning",
+    "",
+    "Swarm Intelligence",
+    "  Multi-AYNO Bot coordination — shared",
+    "  mapping, distributed task allocation,",
+    "  coverage optimization for large areas",
+]
+
+add_bullet_frame(slide, Inches(9.1), Inches(1.95), Inches(3.7), Inches(4.8),
+                 arch_items, font_size=10, color=GRAY, spacing=Pt(2))
+
+add_slide_number(slide, 15)
+
+
+# ═══════════════════════════════════════════════════════════════════════
+#  SLIDE 16 — THANK YOU / Q&A
 # ═══════════════════════════════════════════════════════════════════════
 slide = prs.slides.add_slide(prs.slide_layouts[6])
 add_bg(slide, DARK_BG)
@@ -1136,7 +1306,7 @@ add_text_box(slide, Inches(0.8), Inches(5.7), Inches(9), Inches(0.5),
              "Questions & Discussion",
              font_size=18, color=GRAY)
 
-add_slide_number(slide, 14)
+add_slide_number(slide, 16)
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -1166,4 +1336,6 @@ print(" 10.  Proof of Concept — Plant DT (LIVE)")
 print(" 11.  Technology Stack")
 print(" 12.  Implementation Roadmap — 4 Phases")
 print(" 13.  Impact & Metrics")
-print(" 14.  Thank You & Q&A")
+print(" 14.  AYNO Bot — Autonomous Garden Robot")
+print(" 15.  Advanced Technology Roadmap")
+print(" 16.  Thank You & Q&A")
